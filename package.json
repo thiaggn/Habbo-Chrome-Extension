@@ -1,0 +1,22 @@
+{
+  "name": "wsnetwork",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chrome": "^0.0.246",
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.2.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "@base2/pretty-print-object": "^1.0.2"
+  }
+}
