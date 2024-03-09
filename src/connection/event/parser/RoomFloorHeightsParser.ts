@@ -4,7 +4,7 @@ import {EventData} from "../EventData";
 import {RoomFloorData} from "../data/RoomFloorData";
 import {Console} from "../../../utils/Console";
 
-export class RoomFloorParser implements EventParser {
+export class RoomFloorHeightsParser implements EventParser {
     parse(buffer: BufferReader): EventData {
 
         const roomFloor = new RoomFloorData();

@@ -1,5 +1,5 @@
 import {EventComposer} from "../EventComposer";
-import {InventoryFurniture} from "../../../hotel/furni/InventoryFurniture";
+import {InventoryFurniture} from "../../../hotel/inventory/InventoryFurniture";
 import {BufferWriter} from "../../../utils/BufferWriter";
 import {OutgoingEvent} from "../EventHeaders";
 

@@ -1,5 +1,5 @@
 import {Console} from "../utils/Console";
-import {CatalogFurniture} from "../hotel/furni/CatalogFurniture";
+import {CatalogFurniture} from "../hotel/catalog/CatalogFurniture";
 
 
 type RendererConfig = {

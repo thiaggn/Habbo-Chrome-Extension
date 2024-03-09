@@ -1,5 +1,5 @@
 import {EventAPI} from "../../connection/EventAPI";
-import {InventoryFurniture} from "../furni/InventoryFurniture";
+import {InventoryFurniture} from "./InventoryFurniture";
 import {IncomingEvent, OutgoingEvent} from "../../connection/event/EventHeaders";
 import {UserInventoryData} from "../../connection/event/data/event-issued/UserInventoryData";
 import {CatalogPurchaseData} from "../../connection/event/data/PurchaseOK";
@@ -26,11 +26,11 @@ export class Inventory {
             this.mustUpdate = true;
         })
 
-        eventAPI.listen(IncomingEvent.InventoryUpdate, (event: UserInventoryData) => {
+        eventAPI.listen(IncomingEvent.InventoryFurniList, (event: UserInventoryData) => {
             this.mustUpdate = false;
         })
 
-        eventAPI.listen(IncomingEvent.InventoryRemove, async (event: InventoryRemovedFurniData) => {
+        eventAPI.listen(IncomingEvent.InventoryFurniRemove, async (event: InventoryRemovedFurniData) => {
             this.mustUpdate = true;
         })
     }
@@ -41,7 +41,7 @@ export class Inventory {
             const composer = new InventoryUpdateComposer();
             this.eventAPI.sendEvent(composer);
 
-            this.eventAPI.consume(IncomingEvent.InventoryUpdate, (event: UserInventoryData) => {
+            this.eventAPI.consume(IncomingEvent.InventoryFurniList, (event: UserInventoryData) => {
                 resolve(event);
             })
         })

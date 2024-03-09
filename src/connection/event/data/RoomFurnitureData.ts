@@ -1,13 +1,12 @@
+import {EventData} from "../EventData";
+import {IObjectData} from "../../../temp/IObjectData";
 
-import {InventoryFurniture} from "./InventoryFurniture";
-import {IObjectData} from "../../temp/IObjectData";
-
-export class RoomFurniture {
+export class RoomFurnitureData implements EventData {
     public itemId: number;
     public spriteId: number;
     public spriteName: string;
-    public x: number;
-    public y: number;
+    public w: number;
+    public h: number;
     public direction: number;
     public z: number;
     public stackHeight: number;
@@ -24,5 +23,4 @@ export class RoomFurniture {
     public usagePolicy: number;
     public userId: number;
     public username: string;
-
 }

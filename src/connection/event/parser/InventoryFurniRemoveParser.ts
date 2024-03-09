@@ -1,10 +1,10 @@
 import {BufferReader} from "../../../utils/BufferReader";
-import {InventoryFurniture} from "../../../hotel/furni/InventoryFurniture";
+import {InventoryFurniture} from "../../../hotel/inventory/InventoryFurniture";
 import {EventParser} from "../EventParser";
 import {UserInventoryData} from "../data/event-issued/UserInventoryData";
 import {EventData} from "../EventData";
 import {Console} from "../../../utils/Console";
-export class InventoryRemovedFurniParser implements EventParser {
+export class InventoryFurniRemoveParser implements EventParser {
     public parse(buffer: BufferReader): UserInventoryData {
         buffer.skipInt(2);
 

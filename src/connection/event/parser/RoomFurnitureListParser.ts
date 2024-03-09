@@ -2,8 +2,7 @@ import {EventParser} from "../EventParser";
 import {BufferReader} from "../../../utils/BufferReader";
 import {EventData} from "../EventData";
 import {RoomFurnitureListData} from "../data/RoomFurnitureListData";
-import {RoomFurniture} from "../../../hotel/furni/RoomFurniture";
-import {FurnitureDataParser} from "../../../temp/FurnitureDataParser";
+import {readFurniData} from "../../../utils/FurniUtils";
 
 export class RoomFurnitureListParser implements EventParser {
     parse(buffer: BufferReader): EventData {
@@ -19,20 +18,7 @@ export class RoomFurnitureListParser implements EventParser {
 
         let totalItems = buffer.readInt();
         while(totalItems > 0) {
-            const item = new RoomFurniture();
-            item.itemId = buffer.readInt();
-            item.spriteId = buffer.readInt();
-            item.x = buffer.readInt();
-            item.y = buffer.readInt();
-            item.direction =  ((buffer.readInt() % 8) * 45);
-            item.z = parseFloat(buffer.readString())
-            item.stackHeight = parseFloat(buffer.readString());
-            item.extra = buffer.readInt();
-            item.data = FurnitureDataParser.parseObjectData(buffer);
-            item.state = parseFloat(item.data && item.data.getLegacyString())
-            item.expires = buffer.readInt();
-            item.usagePolicy = buffer.readInt();
-            item.userId = buffer.readInt();
+            const item = readFurniData(buffer);
             item.username = eventData.owners.get(item.userId);
 
             if(item.spriteId < 0) item.spriteName = buffer.readString();

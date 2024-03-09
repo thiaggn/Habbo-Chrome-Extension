@@ -1,4 +1,4 @@
-import {CatalogFurniture} from "../CatalogFurniture";
+import {CatalogFurniture} from "../../catalog/CatalogFurniture";
 
 export const FurniWiredAddons: CatalogFurniture[] = [
     {

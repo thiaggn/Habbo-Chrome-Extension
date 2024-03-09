@@ -1,4 +1,4 @@
-import {InventoryUpdateParser} from "./parser/InventoryUpdateParser";
+import {InventoryFurniList} from "./parser/InventoryFurniList";
 
 export enum OutgoingEvent {
     CatalogPurchase = 3492,
@@ -9,11 +9,13 @@ export enum OutgoingEvent {
 
 export enum IncomingEvent {
     PurchaseSuccess = 869,
-    InventoryUpdate = 994,
-    InventoryRemove = 159,
+    InventoryFurniList = 994,
+    InventoryFurniRemove = 159,
     CatalogPage = 804,
-    RoomFloor= 1301,
-    RoomHeight = 2753,
+    RoomFloorHeights= 1301,
+    RoomStackHeights = 2753,
     RoomFurnitureList = 1778,
     RoomFurniturePlace = 1534,
+    RoomFurnitureRemove = 2703,
+    RoomFurnitureUpdate = 3776
 }

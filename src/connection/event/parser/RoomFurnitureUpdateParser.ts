@@ -1,16 +1,15 @@
 import {EventParser} from "../EventParser";
 import {BufferReader} from "../../../utils/BufferReader";
 import {EventData} from "../EventData";
+import {RoomFurnitureRemoveData} from "../data/RoomFurnitureRemoveData";
 import {FurnitureDataParser} from "../../../temp/FurnitureDataParser";
 import {RoomFurnitureData} from "../data/RoomFurnitureData";
 import {readFurniData} from "../../../utils/FurniUtils";
 
-export class RoomFurniturePlaceParser implements EventParser {
+export class RoomFurnitureUpdateParser implements EventParser {
     parse(buffer: BufferReader): EventData {
-        const singleItem =  readFurniData(buffer);
-        singleItem.username = buffer.readString();
-        if(singleItem.spriteId < 0) singleItem.spriteName = buffer.readString();
-        return singleItem;
+        const item =  readFurniData(buffer);
+        if(item.spriteId < 0) item.spriteName = buffer.readString();
+        return item;
     }
-
 }

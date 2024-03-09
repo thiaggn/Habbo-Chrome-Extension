@@ -1,7 +1,8 @@
 import {EventData} from "../EventData";
-import {RoomFurniture} from "../../../hotel/furni/RoomFurniture";
+import {RoomFurnitureData} from "./RoomFurnitureData";
+
 
 export class RoomFurnitureListData implements EventData {
     public owners = new Map<number, string>();
-    public items: RoomFurniture[] = [];
+    public items: RoomFurnitureData[] = [];
 }

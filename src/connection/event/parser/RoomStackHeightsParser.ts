@@ -3,7 +3,7 @@ import {BufferReader} from "../../../utils/BufferReader";
 import {EventData} from "../EventData";
 import {RoomHeightData} from "../data/RoomHeightData";
 
-export class RoomHeightsParser implements EventParser {
+export class RoomStackHeightsParser implements EventParser {
     parse(buffer: BufferReader): RoomHeightData {
         const eventData = new RoomHeightData();
 

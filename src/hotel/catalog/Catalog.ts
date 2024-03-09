@@ -1,5 +1,5 @@
 import {WiredAddonID, WiredConditionID, WiredEffectID, WiredExtraID, WiredScoreID, WiredSelectorID, WiredTriggerID, WiredCategory} from "./WiredCategory";
-import {CatalogFurniture} from "../furni/CatalogFurniture";
+import {CatalogFurniture} from "./CatalogFurniture";
 import {FurniWiredAddons} from "../furni/wired/FurniWiredAddons";
 import {furniWiredConditions} from "../furni/wired/FurniWiredConditions";
 import {furniWiredEffects} from "../furni/wired/FurniWiredEffects";

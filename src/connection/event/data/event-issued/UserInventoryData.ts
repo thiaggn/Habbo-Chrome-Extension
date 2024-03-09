@@ -1,4 +1,4 @@
-import {InventoryFurniture} from "../../../../hotel/furni/InventoryFurniture";
+import {InventoryFurniture} from "../../../../hotel/inventory/InventoryFurniture";
 import {EventData} from "../../EventData";
 
 export class UserInventoryData implements EventData {

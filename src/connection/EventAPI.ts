@@ -1,6 +1,6 @@
 import {BufferReader} from "../utils/BufferReader";
 import {IncomingEvent} from "./event/EventHeaders";
-import {InventoryRemovedFurniParser} from "./event/parser/InventoryRemovedFurniParser";
+import {InventoryFurniRemoveParser} from "./event/parser/InventoryFurniRemoveParser";
 import {EventParser} from "./event/EventParser";
 import {EventData} from "./event/EventData";
 import {Console} from "../utils/Console";
@@ -13,28 +13,33 @@ import {IncomingHeader} from "../temp/IncomingHeaders";
 import {CatalogPurchaseData} from "./event/data/PurchaseOK";
 import {CatalogPurchaseParser} from "./event/parser/CatalogPurchaseParser";
 import {InventoryRemovedFurniData} from "./event/data/InventoryRemovedFurniData";
-import {InventoryUpdateParser} from "./event/parser/InventoryUpdateParser";
+import {InventoryFurniList} from "./event/parser/InventoryFurniList";
 import {EventObserver} from "../utils/EventObserver";
 import {RoomFloorData} from "./event/data/RoomFloorData";
-import {RoomFloorParser} from "./event/parser/RoomFloorParser";
+import {RoomFloorHeightsParser} from "./event/parser/RoomFloorHeightsParser";
 import {RoomHeightData} from "./event/data/RoomHeightData";
-import {RoomHeightsParser} from "./event/parser/RoomHeightsParser";
+import {RoomStackHeightsParser} from "./event/parser/RoomStackHeightsParser";
 import {RoomFurnitureListData} from "./event/data/RoomFurnitureListData";
 import {RoomFurnitureListParser} from "./event/parser/RoomFurnitureListParser";
-import {RoomFurniturePlaceData} from "./event/data/RoomFurniturePlaceData";
+import {RoomFurnitureData} from "./event/data/RoomFurnitureData";
 import {RoomFurniturePlaceParser} from "./event/parser/RoomFurniturePlaceParser";
+import {RoomFurnitureRemoveData} from "./event/data/RoomFurnitureRemoveData";
+import {RoomFurnitureRemoveParser} from "./event/parser/RoomFurnitureRemoveParser";
+import {RoomFurnitureUpdateParser} from "./event/parser/RoomFurnitureUpdateParser";
 
 
 // Associa um evento que está chegando ao seu tipo de dado;
 type IncomingDataMap = {
-    [IncomingEvent.InventoryUpdate]: UserInventoryData;
+    [IncomingEvent.InventoryFurniList]: UserInventoryData;
     [IncomingEvent.CatalogPage]: CatalogPageData;
     [IncomingEvent.PurchaseSuccess]: CatalogPurchaseData;
-    [IncomingEvent.InventoryRemove]: InventoryRemovedFurniData;
-    [IncomingEvent.RoomFloor]: RoomFloorData;
-    [IncomingEvent.RoomHeight]: RoomHeightData,
+    [IncomingEvent.InventoryFurniRemove]: InventoryRemovedFurniData;
+    [IncomingEvent.RoomFloorHeights]: RoomFloorData;
+    [IncomingEvent.RoomStackHeights]: RoomHeightData,
     [IncomingEvent.RoomFurnitureList]: RoomFurnitureListData,
-    [IncomingEvent.RoomFurniturePlace]: RoomFurniturePlaceData
+    [IncomingEvent.RoomFurniturePlace]: RoomFurnitureData,
+    [IncomingEvent.RoomFurnitureUpdate]: RoomFurnitureData
+    [IncomingEvent.RoomFurnitureRemove]: RoomFurnitureRemoveData,
 };
 
 export class EventAPI extends EventObserver<IncomingDataMap, IncomingEvent> {
@@ -45,14 +50,16 @@ export class EventAPI extends EventObserver<IncomingDataMap, IncomingEvent> {
     }
 
     private eventParsers = new Map<IncomingEvent, EventParser>([
-        [IncomingEvent.InventoryUpdate, new InventoryRemovedFurniParser()],
+        [IncomingEvent.InventoryFurniList, new InventoryFurniRemoveParser()],
         [IncomingEvent.CatalogPage, new CatalogPageParser()],
         [IncomingEvent.PurchaseSuccess, new CatalogPurchaseParser()],
-        [IncomingEvent.InventoryRemove, new InventoryUpdateParser()],
-        [IncomingEvent.RoomFloor, new RoomFloorParser()],
-        [IncomingEvent.RoomHeight, new RoomHeightsParser()],
+        [IncomingEvent.InventoryFurniRemove, new InventoryFurniList()],
+        [IncomingEvent.RoomFloorHeights, new RoomFloorHeightsParser()],
+        [IncomingEvent.RoomStackHeights, new RoomStackHeightsParser()],
         [IncomingEvent.RoomFurnitureList, new RoomFurnitureListParser()],
-        [IncomingEvent.RoomFurniturePlace, new RoomFurniturePlaceParser()]
+        [IncomingEvent.RoomFurniturePlace, new RoomFurniturePlaceParser()],
+        [IncomingEvent.RoomFurnitureRemove, new RoomFurnitureRemoveParser()],
+        [IncomingEvent.RoomFurnitureUpdate, new RoomFurnitureUpdateParser()],
     ])
 
     public sendEvent(composer: EventComposer) {

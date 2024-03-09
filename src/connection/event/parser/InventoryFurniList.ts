@@ -1,9 +1,9 @@
 import {EventParser} from "../EventParser";
 import {InventoryRemovedFurniData} from "../data/InventoryRemovedFurniData";
-import {InventoryFurniture} from "../../../hotel/furni/InventoryFurniture";
+import {InventoryFurniture} from "../../../hotel/inventory/InventoryFurniture";
 import {BufferReader} from "../../../utils/BufferReader";
 
-export class InventoryUpdateParser implements EventParser {
+export class InventoryFurniList implements EventParser {
     public parse(buffer: BufferReader): InventoryRemovedFurniData {
         let event = new InventoryRemovedFurniData();
         event.itemId = buffer.readInt();
