@@ -1,2 +1,3 @@
-/build
+/build/content_script.js
+/build/extension_bundle.js
 /node_modules

@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "version": "1.0.0",
+  "name": "Wired Studio Network Interface",
+  "description": "Modding interface for Habblet",
+  "permissions": ["activeTab", "storage", "scripting"],
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "run_at": "document_start",
+      "js": ["content_script.js"]
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": ["extension_bundle.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
