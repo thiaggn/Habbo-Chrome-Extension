@@ -1,6 +1,6 @@
-import {ProductData} from "./ProductData";
+import {CatalogProductData} from "./CatalogProductData";
 
-export class OfferData {
+export class CatalogOfferData {
     public offerId: number;
     public localizationId: string;
     public rent: boolean;
@@ -12,5 +12,5 @@ export class OfferData {
     public bundlePurchaseAllowed: boolean;
     public isPet: boolean;
     public previewImage: string;
-    public products: ProductData[] = [];
+    public products: CatalogProductData[] = [];
 }

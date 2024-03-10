@@ -1,4 +1,3 @@
-import {Placeable} from "../furni/behavior/Placeable";
 
 export class InventoryFurniture {
     rentable: boolean;

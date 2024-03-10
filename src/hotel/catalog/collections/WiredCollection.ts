@@ -1,4 +1,4 @@
-export enum WiredCategory {
+export enum WiredCollection {
     Addon = 9896314,
     Condition = 9896312,
     Effect = 9896311,
@@ -12,9 +12,9 @@ export enum WiredTriggerID {
     WalksOnFurni = 2974,
     WalksOffFurni = 2973,
     SaysSomething = 2970,
-    SaysSycommand = 1356479535,
+    SaysCommand = 1356479535,
     StateChanged = 2972,
-    StateChangdd = 1356479519,
+    StateChanged2 = 1356479519,
     StuffState = 886607607,
     EnterRoom = 2966,
     ExitsRoom = 886612308,

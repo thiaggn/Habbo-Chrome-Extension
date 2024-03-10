@@ -7,6 +7,6 @@ export class InventoryUpdateComposer implements EventComposer {
     public readonly buffer: ArrayBuffer;
     constructor() {
         const writer = new BufferWriter(OutgoingEvent.InventoryUpdate);
-        this.buffer = writer.getBuffer();
+        this.buffer = writer.wrap();
     }
 }

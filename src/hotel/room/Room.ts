@@ -11,7 +11,6 @@ import {RoomFurnitureRemoveData} from "../../connection/event/data/RoomFurniture
 import {RoomFurniture} from "./RoomFurniture";
 import {RoomTile} from "./RoomTile";
 import {mget} from "../../utils/ArrayUtils";
-import {RoomFurnitureUpdateParser} from "../../connection/event/parser/RoomFurnitureUpdateParser";
 
 export class Room {
     private eventAPI: EventAPI;
@@ -62,6 +61,9 @@ export class Room {
         });
 
         eventAPI.listen(IncomingEvent.RoomFurnitureList, (data: RoomFurnitureListData) => {
+
+            this.furniture.clear();
+
             for (let furnitureData of data.items) {
                 this.addFurni(furnitureData);
             }
@@ -72,23 +74,19 @@ export class Room {
 
         eventAPI.listen(IncomingEvent.RoomFurniturePlace, (data: RoomFurnitureData) => {
             this.addFurni(data);
-            Console.log(`%c[Room] %Updated furniture list`, 'color: cyan', 'color: white');
+            Console.log(`%c[Room] %cUpdated furniture list`, 'color: cyan', 'color: white');
             Console.log(this);
         })
 
         eventAPI.listen(IncomingEvent.RoomFurnitureRemove, (data: RoomFurnitureRemoveData) => {
-
-            this.removeFurni(data.userId);
+            this.removeFurni(data.itemId);
             Console.log(`%c[Room] %cUpdated furniture list`, 'color: cyan', 'color: white');
             Console.log(this);
         })
 
         eventAPI.listen(IncomingEvent.RoomFurnitureUpdate, (data: RoomFurnitureData) => {
-
             const newStatus = data;
             const prevStatus = this.furniture.get(newStatus.itemId);
-
-            Console.log(`%c[Room] %cUpdated furniture`, 'color: cyan', 'color: white');
 
             if (prevStatus) {
                 prevStatus.w = newStatus.w;
@@ -97,32 +95,23 @@ export class Room {
                 prevStatus.stackHeight = newStatus.stackHeight;
                 prevStatus.state = newStatus.state;
             }
-
-            Console.log(prevStatus);
         })
     }
 
     private createRoomFurni(furniData: RoomFurnitureData): RoomFurniture {
-        try {
-            let roomFurniture = new RoomFurniture();
-            roomFurniture.id = furniData.itemId;
-            roomFurniture.w = furniData.w;
-            roomFurniture.h = furniData.h;
-            roomFurniture.stackHeight = furniData.stackHeight
-            roomFurniture.direction = furniData.direction;
-            roomFurniture.hasBeenRemoved = false;
-            roomFurniture.owner = {
-                id: furniData.userId,
-                username: furniData.username
-            }
-            roomFurniture.spriteId = furniData.spriteId;
-            return roomFurniture;
-        } catch (err: Error | any) {
-            Console.log('[Room] Erro ao criar room furniture');
-            Console.log('Argumento passado:', furniData);
-            Console.log(err.message, err.stackTrace);
-            return undefined;
+        let roomFurniture = new RoomFurniture();
+        roomFurniture.id = furniData.itemId;
+        roomFurniture.w = furniData.w;
+        roomFurniture.h = furniData.h;
+        roomFurniture.stackHeight = furniData.stackHeight
+        roomFurniture.direction = furniData.direction;
+        roomFurniture.hasBeenRemoved = false;
+        roomFurniture.owner = {
+            id: furniData.userId,
+            username: furniData.username
         }
+        roomFurniture.spriteId = furniData.spriteId;
+        return roomFurniture;
     }
 
     private addFurni(furniData: RoomFurnitureData) {
@@ -133,25 +122,30 @@ export class Room {
 
         if (tile) {
             tile.furnitures.push(roomFurniture);
-        } else {
+        }
+
+        else {
             Console.log(`%c[Room]%c O tile (h: ${roomFurniture.w}, w: ${roomFurniture.h}) não existe para que uma mobília seja colocada em cima.`, 'color: cyan', 'color:' +
                 ' white')
         }
     }
 
-    private removeFurni(roomFurniID: number) {
-        const roomFurniture = this.furniture.get(roomFurniID);
+    private removeFurni(id: number) {
+        const roomFurniture = this.furniture.get(id);
         roomFurniture.hasBeenRemoved = true;
+
         const tile = this.tiles[roomFurniture.w][roomFurniture.h];
 
         if (tile) {
-            tile.furnitures = tile.furnitures.filter((furni) => furni.id !== roomFurniID);
-        } else {
+            tile.furnitures = tile.furnitures.filter((furni) => furni.id !== id);
+        }
+
+        else {
             Console.log(`%c[Room]%c O tile (h: ${roomFurniture.w}, w: ${roomFurniture.h}) não existe para que uma mobília seja colocada em cima.`, 'color: cyan', 'color:' +
                 ' white')
         }
 
-        this.furniture.delete(roomFurniID);
+        this.furniture.delete(id);
     }
 
     public async placeFurni(furni: InventoryFurniture, x: number, y: number): Promise<void> {

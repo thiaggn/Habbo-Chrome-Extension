@@ -1,4 +1,4 @@
-import {WiredAddonID, WiredConditionID, WiredEffectID, WiredExtraID, WiredScoreID, WiredSelectorID, WiredTriggerID, WiredCategory} from "./WiredCategory";
+import {WiredAddonID, WiredConditionID, WiredEffectID, WiredExtraID, WiredScoreID, WiredSelectorID, WiredTriggerID, WiredCollection} from "./collections/WiredCollection";
 import {CatalogFurniture} from "./CatalogFurniture";
 import {FurniWiredAddons} from "../furni/wired/FurniWiredAddons";
 import {furniWiredConditions} from "../furni/wired/FurniWiredConditions";
@@ -8,7 +8,7 @@ import {furniWiredScores} from "../furni/wired/FurniWiredScores";
 import {furniWiredSelectors} from "../furni/wired/FurniWiredSelectors";
 import {furniWiredTriggers} from "../furni/wired/FurniWiredTriggers";
 import {Console} from "../../utils/Console";
-import {CatalogPurchaseData} from "../../connection/event/data/PurchaseOK";
+import {CatalogPurchaseData} from "../../connection/event/data/CatalogPurchase";
 import {EventAPI} from "../../connection/EventAPI";
 import {IncomingEvent, OutgoingEvent} from "../../connection/event/EventHeaders";
 import {InventoryUpdateComposer} from "../../connection/event/composer/InventoryUpdateComposer";

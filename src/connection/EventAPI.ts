@@ -1,16 +1,16 @@
 import {BufferReader} from "../utils/BufferReader";
-import {IncomingEvent} from "./event/EventHeaders";
+import {IncomingEvent, OutgoingEvent} from "./event/EventHeaders";
 import {InventoryFurniRemoveParser} from "./event/parser/InventoryFurniRemoveParser";
 import {EventParser} from "./event/EventParser";
 import {EventData} from "./event/EventData";
 import {Console} from "../utils/Console";
-import {UserInventoryData} from "./event/data/event-issued/UserInventoryData";
-import {CatalogPageData} from "./event/data/event-issued/CatalogPageData";
+import {InventoryData} from "./event/data/InventoryData";
+import {CatalogPageData} from "./event/data/CatalogPageData";
 import {CatalogPageParser} from "./event/parser/CatalogPageParser";
 import {EventComposer} from "./event/EventComposer";
 import {OutgoingHeader} from "../temp/OutgoingHeaders";
 import {IncomingHeader} from "../temp/IncomingHeaders";
-import {CatalogPurchaseData} from "./event/data/PurchaseOK";
+import {CatalogPurchaseData} from "./event/data/CatalogPurchase";
 import {CatalogPurchaseParser} from "./event/parser/CatalogPurchaseParser";
 import {InventoryRemovedFurniData} from "./event/data/InventoryRemovedFurniData";
 import {InventoryFurniList} from "./event/parser/InventoryFurniList";
@@ -30,7 +30,7 @@ import {RoomFurnitureUpdateParser} from "./event/parser/RoomFurnitureUpdateParse
 
 // Associa um evento que está chegando ao seu tipo de dado;
 type IncomingDataMap = {
-    [IncomingEvent.InventoryFurniList]: UserInventoryData;
+    [IncomingEvent.InventoryFurniList]: InventoryData;
     [IncomingEvent.CatalogPage]: CatalogPageData;
     [IncomingEvent.PurchaseSuccess]: CatalogPurchaseData;
     [IncomingEvent.InventoryFurniRemove]: InventoryRemovedFurniData;
@@ -61,25 +61,27 @@ export class EventAPI extends EventObserver<IncomingDataMap, IncomingEvent> {
         [IncomingEvent.RoomFurnitureRemove, new RoomFurnitureRemoveParser()],
         [IncomingEvent.RoomFurnitureUpdate, new RoomFurnitureUpdateParser()],
     ])
-
     public sendEvent(composer: EventComposer) {
         this._socket.send(composer.buffer);
     }
-
     private parseEvent(data: ArrayBuffer) {
         const buffer = new BufferReader(data);
         const length: number = buffer.readInt();
         const header: number = buffer.readShort();
-
         const parser: EventParser = this.eventParsers.get(header);
 
+        const name: string = IncomingEvent[header];
+
         Console.log(
-            `%c[EventAPI] %c🟢 ${IncomingHeader[header]} %c${length} ${header} ${parser ? 'Y' : 'N'}`,
+            `%c[EventAPI] %c🟢 ${name} %c${length} ${header} ${parser ? 'Y' : 'N'}`,
             'color: #e0f59a', 'color: white', 'color: gray'
         );
 
-        if (parser) {
+        if(!name) {
+            Console.hex(new DataView(data));
+        }
 
+        if (parser) {
             try {
                 const data: EventData = parser.parse(buffer);
                 this.callObservers(header, data);
@@ -92,15 +94,24 @@ export class EventAPI extends EventObserver<IncomingDataMap, IncomingEvent> {
         }
     }
 
-    private exposeHeader(buffer: ArrayBuffer): void {
-        const reader = new BufferReader(buffer);
-        const length = reader.readInt();
-        const header = reader.readShort();
+    private exposeHeader(data: ArrayBuffer): void {
+        const buffer = new BufferReader(data);
+        const length = buffer.readInt();
+        const header = buffer.readShort();
+        const name: string = OutgoingHeader[header] ;
 
         Console.log(
-            `%c[EventAPI] %c🔵 ${OutgoingHeader[header]} %cLen: ${length}`,
+            `%c[EventAPI] %c🔵 ${name} %c ${length} ${header}`,
             'color: #e0f59a', 'color: white', 'color: gray'
         );
+
+        if(!name) {
+            Console.hex(new DataView(data));
+        }
+
+        if(header == OutgoingHeader.FURNITURE_FLOOR_UPDATE) {
+            Console.log('ID', buffer.readInt(), 'x', buffer.readInt(), 'y', buffer.readInt(), 'direction', buffer.readInt());
+        }
     }
 
     public async start(): Promise<void> {

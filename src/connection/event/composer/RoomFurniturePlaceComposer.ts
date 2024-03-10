@@ -5,7 +5,7 @@ import {OutgoingEvent} from "../EventHeaders";
 import {Console} from "../../../utils/Console";
 
 
-enum Category {
+enum FurniPlacementType {
     Floor = 1,
     Wall = 20,
     Unit = 100
@@ -14,9 +14,9 @@ export class RoomFurniturePlaceComposer implements EventComposer {
 
     public readonly buffer: ArrayBuffer;
     constructor(furni: InventoryFurniture, x: number, y: number, direction: number = 0, wallLocation: string = '') {
-        let writer = new BufferWriter(OutgoingEvent.FurniturePlace);
+        let writer = new BufferWriter(OutgoingEvent.RoomFurniturePlace);
 
-        if(furni.category == Category.Floor) {
+        if(furni.category == FurniPlacementType.Floor) {
             writer.writeString(`${furni.itemId} ${x} ${y} ${direction}`);
         }
 
@@ -25,6 +25,6 @@ export class RoomFurniturePlaceComposer implements EventComposer {
             // buffer.writeString(`${furni.itemId} ${wallLocation}`)
         }
 
-        this.buffer = writer.getBuffer();
+        this.buffer = writer.wrap();
     }
 }

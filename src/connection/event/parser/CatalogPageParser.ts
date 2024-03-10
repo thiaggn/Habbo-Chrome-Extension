@@ -1,10 +1,10 @@
 import {EventParser} from "../EventParser";
 import {BufferReader} from "../../../utils/BufferReader";
 import {EventData} from "../EventData";
-import {CatalogPageData} from "../data/event-issued/CatalogPageData";
-import {OfferData} from "../data/OfferData";
-import {ProductData} from "../data/ProductData";
-import {FrontPageItem} from "../data/FrontPageItem";
+import {CatalogPageData} from "../data/CatalogPageData";
+import {CatalogOfferData} from "../data/CatalogOfferData";
+import {CatalogProductData} from "../data/CatalogProductData";
+import {CatalogFrontPageData} from "../data/CatalogFrontPageData";
 import {Console} from "../../../utils/Console";
 import write = chrome.socket.write;
 
@@ -32,7 +32,7 @@ export class CatalogPageParser implements EventParser {
         // Preenche offers
         let totalOffers = buffer.readInt();
         while(totalOffers > 0) {
-            const offerData = new OfferData();
+            const offerData = new CatalogOfferData();
 
             offerData.offerId = buffer.readInt();
             offerData.localizationId = buffer.readString();
@@ -44,7 +44,7 @@ export class CatalogPageParser implements EventParser {
 
             let totalProducts = buffer.readInt();
             while(totalProducts > 0) {
-                const productData = new ProductData();
+                const productData = new CatalogProductData();
 
                 productData.productType = buffer.readString();
 
@@ -88,7 +88,7 @@ export class CatalogPageParser implements EventParser {
         if(buffer.bytesAvailable) {
             let totalFrontPageItems = buffer.readInt();
             while(totalFrontPageItems > 0) {
-                const frontPageItem = new FrontPageItem();
+                const frontPageItem = new CatalogFrontPageData();
 
                 frontPageItem.position = buffer.readInt();
                 frontPageItem.itemName = buffer.readString();

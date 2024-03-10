@@ -1,6 +1,6 @@
-import {EventData} from "../../EventData";
-import {OfferData} from "../OfferData";
-import {FrontPageItem} from "../FrontPageItem";
+import {EventData} from "../EventData";
+import {CatalogOfferData} from "./CatalogOfferData";
+import {CatalogFrontPageData} from "./CatalogFrontPageData";
 
 export class CatalogPageData implements EventData {
     public pageId: number = -1;
@@ -10,8 +10,8 @@ export class CatalogPageData implements EventData {
         images: [],
         texts: []
     };
-    public offers: OfferData[] = [];
+    public offers: CatalogOfferData[] = [];
     public offerId: number = -1;
     public acceptSeasonCurrencyAsCredits: boolean = false;
-    public frontPageItems: FrontPageItem[] = [];
+    public frontPageItems: CatalogFrontPageData[] = [];
 }

@@ -1,8 +1,8 @@
 import {EventParser} from "../EventParser";
 import {BufferReader} from "../../../utils/BufferReader";
 import {EventData} from "../EventData";
-import {CatalogPurchaseData} from "../data/PurchaseOK";
-import {ProductData} from "../data/ProductData";
+import {CatalogPurchaseData} from "../data/CatalogPurchase";
+import {CatalogProductData} from "../data/CatalogProductData";
 import {Console} from "../../../utils/Console";
 
 export class CatalogPurchaseParser implements EventParser {
@@ -20,7 +20,7 @@ export class CatalogPurchaseParser implements EventParser {
         data.products = [];
 
         while(totalProducts > 0) {
-            const product = new ProductData();
+            const product = new CatalogProductData();
             product.productType = buffer.readString();
 
 

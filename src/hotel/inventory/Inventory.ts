@@ -1,8 +1,8 @@
 import {EventAPI} from "../../connection/EventAPI";
 import {InventoryFurniture} from "./InventoryFurniture";
 import {IncomingEvent, OutgoingEvent} from "../../connection/event/EventHeaders";
-import {UserInventoryData} from "../../connection/event/data/event-issued/UserInventoryData";
-import {CatalogPurchaseData} from "../../connection/event/data/PurchaseOK";
+import {InventoryData} from "../../connection/event/data/InventoryData";
+import {CatalogPurchaseData} from "../../connection/event/data/CatalogPurchase";
 import {InventoryRemovedFurniData} from "../../connection/event/data/InventoryRemovedFurniData";
 import {Console} from "../../utils/Console";
 import {InventoryUpdateComposer} from "../../connection/event/composer/InventoryUpdateComposer";
@@ -26,7 +26,7 @@ export class Inventory {
             this.mustUpdate = true;
         })
 
-        eventAPI.listen(IncomingEvent.InventoryFurniList, (event: UserInventoryData) => {
+        eventAPI.listen(IncomingEvent.InventoryFurniList, (event: InventoryData) => {
             this.mustUpdate = false;
         })
 
@@ -37,11 +37,11 @@ export class Inventory {
 
     private async updateInventory(): Promise<void> {
 
-        const update = await new Promise<UserInventoryData>((resolve) => {
+        const update = await new Promise<InventoryData>((resolve) => {
             const composer = new InventoryUpdateComposer();
             this.eventAPI.sendEvent(composer);
 
-            this.eventAPI.consume(IncomingEvent.InventoryFurniList, (event: UserInventoryData) => {
+            this.eventAPI.consume(IncomingEvent.InventoryFurniList, (event: InventoryData) => {
                 resolve(event);
             })
         })

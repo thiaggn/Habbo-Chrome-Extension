@@ -3,8 +3,13 @@ import {InventoryFurniList} from "./parser/InventoryFurniList";
 export enum OutgoingEvent {
     CatalogPurchase = 3492,
     InventoryUpdate = 3150,
-    FurniturePlace = 1258,
-    FurnitureMove = 248
+    RoomFurniturePlace = 1258,
+    RoomFurnitureMove = 248,
+    RoomFurnitureRemove = 3456,
+    RoomFurnitureUpdate = 248,
+    RoomFurnitureUse = 99,
+    WiredConditionSave = 3203,
+    WiredSelectorSave = 363, // sem
 }
 
 export enum IncomingEvent {

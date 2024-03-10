@@ -1,15 +1,15 @@
 import {BufferReader} from "../../../utils/BufferReader";
 import {InventoryFurniture} from "../../../hotel/inventory/InventoryFurniture";
 import {EventParser} from "../EventParser";
-import {UserInventoryData} from "../data/event-issued/UserInventoryData";
+import {InventoryData} from "../data/InventoryData";
 import {EventData} from "../EventData";
 import {Console} from "../../../utils/Console";
 export class InventoryFurniRemoveParser implements EventParser {
-    public parse(buffer: BufferReader): UserInventoryData {
+    public parse(buffer: BufferReader): InventoryData {
         buffer.skipInt(2);
 
         let totalItems: number = buffer.readInt();
-        const eventData = new UserInventoryData();
+        const eventData = new InventoryData();
 
         while (totalItems > 0) {
 

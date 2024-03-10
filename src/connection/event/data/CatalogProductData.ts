@@ -1,4 +1,4 @@
-export class ProductData {
+export class CatalogProductData {
     public static I: string = 'i';
     public static S: string = 's';
     public static E: string = 'e';

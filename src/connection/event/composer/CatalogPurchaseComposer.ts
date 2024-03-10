@@ -11,7 +11,7 @@ export class CatalogPurchaseComposer implements EventComposer {
         writer.writeInt(offerId);
         writer.writeString(extraData);
         writer.writeInt(amount);
-        this.buffer = writer.getBuffer();
+        this.buffer = writer.wrap();
     }
 }
 

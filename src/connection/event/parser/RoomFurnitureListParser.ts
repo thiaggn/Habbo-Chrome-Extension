@@ -20,7 +20,6 @@ export class RoomFurnitureListParser implements EventParser {
         while(totalItems > 0) {
             const item = readFurniData(buffer);
             item.username = eventData.owners.get(item.userId);
-
             if(item.spriteId < 0) item.spriteName = buffer.readString();
             eventData.items.push(item);
             totalItems--;

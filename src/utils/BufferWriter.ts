@@ -14,7 +14,7 @@ export class BufferWriter
         }
     }
 
-    public getBuffer(): ArrayBuffer {
+    public wrap(): ArrayBuffer {
         // Escrever o comprimento atual do buffer nos primeiros 4 bytes
         const bufferLength = this.buffer.length - 4;
         this.buffer[0] = (bufferLength >> 24) & 0xFF;

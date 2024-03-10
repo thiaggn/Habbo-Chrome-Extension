@@ -16,20 +16,20 @@ export class RoomFloorHeightsParser implements EventParser {
             const modelRows: number = roomFloor.model.length;
             let width: number = 0;
             let height: number = 0;
-            let iterator: number = 0;
+            let h: number = 0;
 
-            while (iterator < modelRows) {
-                const row: string = roomFloor.model[iterator];
+            while (h < modelRows) {
+                const row: string = roomFloor.model[h];
                 if (row.length > width) {
                     width = row.length;
                 }
-                iterator++;
+                h++;
             }
 
             roomFloor.heightMap = [];
-            iterator = 0;
+            h = 0;
 
-            while (iterator < modelRows) {
+            while (h < modelRows) {
                 const heightMap: number[] = [];
                 let subIterator: number = 0;
                 while (subIterator < width) {
@@ -37,32 +37,32 @@ export class RoomFloorHeightsParser implements EventParser {
                     subIterator++;
                 }
                 roomFloor.heightMap.push(heightMap);
-                iterator++;
+                h++;
             }
 
             roomFloor.width = width;
             roomFloor.height = modelRows;
-            iterator = 0;
+            h = 0;
 
-            while (iterator < modelRows) {
-                const text: string = roomFloor.model[iterator];
+            while (h < modelRows) {
+                const text: string = roomFloor.model[h];
 
                 if (text.length > 0) {
-                    let subIterator: number = 0;
-                    while (subIterator < text.length) {
-                        const character: string = text.charAt(subIterator);
+                    let w: number = 0;
+                    while (w < text.length) {
+                        const character: string = text.charAt(w);
                         let height: number = -110;
 
                         if (character !== 'x' && character !== 'X') {
                             height = parseInt(character, 36);
-                            roomFloor.heightMap[iterator][subIterator] = height;
+                            roomFloor.heightMap[h][w] = height;
                         }
 
-                        subIterator++;
+                        w++;
                     }
                 }
 
-                iterator++;
+                h++;
             }
 
             return roomFloor;
