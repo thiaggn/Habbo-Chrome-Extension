@@ -7,9 +7,7 @@ export enum OutgoingEvent {
     RoomFurnitureMove = 248,
     RoomFurnitureRemove = 3456,
     RoomFurnitureUpdate = 248,
-    RoomFurnitureUse = 99,
-    WiredConditionSave = 3203,
-    WiredSelectorSave = 363, // sem
+    RoomFurnitureUse = 99 // falta
 }
 
 export enum IncomingEvent {
@@ -24,4 +22,8 @@ export enum IncomingEvent {
     RoomFurnitureRemove = 2703,
     RoomFurnitureUpdate = 3776,
     WiredCondition = 1108,
+    WiredEffect = 1434,
+    WiredTrigger = 383,
+    WiredSelector = 362,
+    WiredAddon = 356,
 }

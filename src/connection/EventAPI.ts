@@ -27,7 +27,16 @@ import {RoomFurnitureRemoveData} from "./event/data/RoomFurnitureRemoveData";
 import {RoomFurnitureRemoveParser} from "./event/parser/RoomFurnitureRemoveParser";
 import {RoomFurnitureUpdateParser} from "./event/parser/RoomFurnitureUpdateParser";
 import {WiredConditionParser} from "./event/parser/WiredConditionParser";
-
+import {WiredEffectParser} from "./event/parser/WiredEffectParser";
+import {
+    WiredAddonData,
+    WiredConditionData,
+    WiredEffectData,
+    WiredSelectorData,
+    WiredTriggerData
+} from "./event/data/WiredData";
+import {WiredSelectorParser} from "./event/parser/WiredSelectorParser";
+import {WiredAddonParser} from "./event/parser/WiredAddonParser";
 
 
 type IncomingDataMap = {
@@ -41,7 +50,11 @@ type IncomingDataMap = {
     [IncomingEvent.RoomFurniturePlace]: RoomFurnitureData,
     [IncomingEvent.RoomFurnitureUpdate]: RoomFurnitureData
     [IncomingEvent.RoomFurnitureRemove]: RoomFurnitureRemoveData,
-    [IncomingEvent.WiredCondition]: WiredConditionParser
+    [IncomingEvent.WiredCondition]: WiredConditionData,
+    [IncomingEvent.WiredEffect]: WiredEffectData,
+    [IncomingEvent.WiredTrigger]: WiredTriggerData
+    [IncomingEvent.WiredSelector]: WiredSelectorData,
+    [IncomingEvent.WiredAddon]: WiredAddonData
 };
 
 export class EventAPI extends EventObserver<IncomingDataMap, IncomingEvent> {
@@ -62,7 +75,11 @@ export class EventAPI extends EventObserver<IncomingDataMap, IncomingEvent> {
         [IncomingEvent.RoomFurniturePlace, new RoomFurniturePlaceParser()],
         [IncomingEvent.RoomFurnitureRemove, new RoomFurnitureRemoveParser()],
         [IncomingEvent.RoomFurnitureUpdate, new RoomFurnitureUpdateParser()],
-        [IncomingEvent.WiredCondition, new WiredConditionParser()]
+        [IncomingEvent.WiredCondition, new WiredConditionParser()],
+        [IncomingEvent.WiredEffect, new WiredEffectParser()],
+        [IncomingEvent.WiredTrigger, new WiredEffectParser()],
+        [IncomingEvent.WiredSelector, new WiredSelectorParser()],
+        [IncomingEvent.WiredAddon, new WiredAddonParser()],
     ])
     public sendEvent(composer: EventComposer) {
         this._socket.send(composer.buffer);
@@ -72,7 +89,7 @@ export class EventAPI extends EventObserver<IncomingDataMap, IncomingEvent> {
         const length: number = buffer.readInt();
         const header: number = buffer.readShort();
         const parser: EventParser = this.eventParsers.get(header);
-        const name: string = IncomingEvent[header];
+        const name: string = IncomingHeader[header];
 
         Console.log(
             `%c[EventAPI] %c🟢 ${name} %c${length} ${header} ${parser ? 'Y' : 'N'}`,
@@ -89,7 +106,7 @@ export class EventAPI extends EventObserver<IncomingDataMap, IncomingEvent> {
             catch (err: any) {
                 Console.log(`%c[EventAPI] %cError parsing event ${IncomingHeader[header]}`,
                     'color: red', 'color: white');
-                Console.log(err.message, err.stackTrace);
+                Console.log(err);
             }
         }
     }
