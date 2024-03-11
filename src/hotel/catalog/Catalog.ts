@@ -1,20 +1,20 @@
 import {WiredAddonID, WiredConditionID, WiredEffectID, WiredExtraID, WiredScoreID, WiredSelectorID, WiredTriggerID, WiredCollection} from "./collections/WiredCollection";
 import {CatalogFurniture} from "./CatalogFurniture";
-import {FurniWiredAddons} from "../furni/wired/FurniWiredAddons";
-import {furniWiredConditions} from "../furni/wired/FurniWiredConditions";
-import {furniWiredEffects} from "../furni/wired/FurniWiredEffects";
-import {furniWiredExtras} from "../furni/wired/FurniWiredExtras";
-import {furniWiredScores} from "../furni/wired/FurniWiredScores";
-import {furniWiredSelectors} from "../furni/wired/FurniWiredSelectors";
-import {furniWiredTriggers} from "../furni/wired/FurniWiredTriggers";
+import {FurniWiredAddons} from "../wired/furni/FurniWiredAddons";
+import {furniWiredConditions} from "../wired/furni/FurniWiredConditions";
+import {furniWiredEffects} from "../wired/furni/FurniWiredEffects";
+import {furniWiredExtras} from "../wired/furni/FurniWiredExtras";
+import {furniWiredScores} from "../wired/furni/FurniWiredScores";
+import {furniWiredSelectors} from "../wired/furni/FurniWiredSelectors";
+import {furniWiredTriggers} from "../wired/furni/FurniWiredTriggers";
 import {Console} from "../../utils/Console";
-import {CatalogPurchaseData} from "../../connection/event/data/CatalogPurchase";
-import {EventAPI} from "../../connection/EventAPI";
-import {IncomingEvent, OutgoingEvent} from "../../connection/event/EventHeaders";
-import {InventoryUpdateComposer} from "../../connection/event/composer/InventoryUpdateComposer";
-import {EventObserver} from "../../utils/EventObserver";
-import {CatalogPurchaseComposer} from "../../connection/event/composer/CatalogPurchaseComposer";
-import {OutgoingHeader} from "../../temp/OutgoingHeaders";
+import {CatalogPurchaseData} from "./event/data/CatalogPurchase";
+import {EventAPI} from "../../event/EventAPI";
+import {IncomingEvent, OutgoingEvent} from "../../event/EventHeaders";
+import {InventoryUpdateComposer} from "../inventory/event/composer/InventoryUpdateComposer";
+import {EventObserver} from "../../event/EventObserver";
+import {CatalogPurchaseComposer} from "./event/composer/CatalogPurchaseComposer";
+import {OutgoingHeader} from "../../data/OutgoingHeaders";
 
 type FurniSpriteID = WiredAddonID | WiredConditionID | WiredExtraID | WiredEffectID | WiredScoreID | WiredSelectorID | WiredTriggerID;
 

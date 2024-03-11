@@ -1,16 +1,18 @@
-import {EventAPI} from "../../connection/EventAPI";
-import {IncomingEvent} from "../../connection/event/EventHeaders";
-import {InventoryFurniture} from "../inventory/InventoryFurniture";
-import {Console} from "../../utils/Console";
-import {RoomFurniturePlaceComposer} from "../../connection/event/composer/RoomFurniturePlaceComposer";
-import {RoomFloorData} from "../../connection/event/data/RoomFloorData";
-import {RoomHeightData} from "../../connection/event/data/RoomHeightData";
-import {RoomFurnitureListData} from "../../connection/event/data/RoomFurnitureListData";
-import {RoomFurnitureData} from "../../connection/event/data/RoomFurnitureData";
-import {RoomFurnitureRemoveData} from "../../connection/event/data/RoomFurnitureRemoveData";
+
+import {RoomFurniturePlaceComposer} from "./event/composer/RoomFurniturePlaceComposer";
+import {RoomFloorData} from "./event/data/RoomFloorData";
+import {RoomHeightData} from "./event/data/RoomHeightData";
+import {RoomFurnitureListData} from "./event/data/RoomFurnitureListData";
+import {RoomFurnitureData} from "./event/data/RoomFurnitureData";
+import {RoomFurnitureRemoveData} from "./event/data/RoomFurnitureRemoveData";
 import {RoomFurniture} from "./RoomFurniture";
 import {RoomTile} from "./RoomTile";
 import {mget} from "../../utils/ArrayUtils";
+import {EventAPI} from "../../event/EventAPI";
+import {IncomingEvent} from "../../event/EventHeaders";
+import {Console} from "../../utils/Console";
+import {InventoryFurniture} from "../inventory/InventoryFurniture";
+
 
 export class Room {
     private eventAPI: EventAPI;

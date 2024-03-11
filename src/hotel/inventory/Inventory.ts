@@ -1,12 +1,12 @@
-import {EventAPI} from "../../connection/EventAPI";
+import {EventAPI} from "../../event/EventAPI";
 import {InventoryFurniture} from "./InventoryFurniture";
-import {IncomingEvent, OutgoingEvent} from "../../connection/event/EventHeaders";
-import {InventoryData} from "../../connection/event/data/InventoryData";
-import {CatalogPurchaseData} from "../../connection/event/data/CatalogPurchase";
-import {InventoryRemovedFurniData} from "../../connection/event/data/InventoryRemovedFurniData";
+import {IncomingEvent, OutgoingEvent} from "../../event/EventHeaders";
+import {InventoryData} from "./event/data/InventoryData";
+import {CatalogPurchaseData} from "../catalog/event/data/CatalogPurchase";
+import {InventoryRemovedFurniData} from "./event/data/InventoryRemovedFurniData";
 import {Console} from "../../utils/Console";
-import {InventoryUpdateComposer} from "../../connection/event/composer/InventoryUpdateComposer";
-import {OutgoingHeader} from "../../temp/OutgoingHeaders";
+import {InventoryUpdateComposer} from "./event/composer/InventoryUpdateComposer";
+import {OutgoingHeader} from "../../data/OutgoingHeaders";
 
 export class Inventory {
 

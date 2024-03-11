@@ -1,6 +1,6 @@
 import {BufferReader} from "./BufferReader";
-import {RoomFurnitureData} from "../connection/event/data/RoomFurnitureData";
-import {FurnitureDataParser} from "../temp/FurnitureDataParser";
+import {FurnitureDataParser} from "../data/FurnitureDataParser";
+import {RoomFurnitureData} from "../hotel/room/event/data/RoomFurnitureData";
 
 export function readFurniData(buffer: BufferReader): RoomFurnitureData {
     const item = new RoomFurnitureData();

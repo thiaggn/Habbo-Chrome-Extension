@@ -1,8 +1,9 @@
-import {Room} from "./hotel/room/Room";
+
 import {Inventory} from "./hotel/inventory/Inventory";
 import {Catalog} from "./hotel/catalog/Catalog";
-import {EventAPI} from "./connection/EventAPI";
-import {DataAPI} from "./connection/DataAPI";
+import {EventAPI} from "./event/EventAPI";
+import {DataAPI} from "./event/DataAPI";
+import {Room} from "./hotel/room/Room";
 export class WSNetwork {
     public static async init(): Promise<[EventAPI, Room, Inventory, Catalog]> {
         const eventAPI = new EventAPI();
