@@ -22,5 +22,6 @@ export enum IncomingEvent {
     RoomFurnitureList = 1778,
     RoomFurniturePlace = 1534,
     RoomFurnitureRemove = 2703,
-    RoomFurnitureUpdate = 3776
+    RoomFurnitureUpdate = 3776,
+    WiredCondition = 1108,
 }

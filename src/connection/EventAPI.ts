@@ -1,5 +1,5 @@
 import {BufferReader} from "../utils/BufferReader";
-import {IncomingEvent, OutgoingEvent} from "./event/EventHeaders";
+import {IncomingEvent} from "./event/EventHeaders";
 import {InventoryFurniRemoveParser} from "./event/parser/InventoryFurniRemoveParser";
 import {EventParser} from "./event/EventParser";
 import {EventData} from "./event/EventData";
@@ -26,9 +26,10 @@ import {RoomFurniturePlaceParser} from "./event/parser/RoomFurniturePlaceParser"
 import {RoomFurnitureRemoveData} from "./event/data/RoomFurnitureRemoveData";
 import {RoomFurnitureRemoveParser} from "./event/parser/RoomFurnitureRemoveParser";
 import {RoomFurnitureUpdateParser} from "./event/parser/RoomFurnitureUpdateParser";
+import {WiredConditionParser} from "./event/parser/WiredConditionParser";
 
 
-// Associa um evento que está chegando ao seu tipo de dado;
+
 type IncomingDataMap = {
     [IncomingEvent.InventoryFurniList]: InventoryData;
     [IncomingEvent.CatalogPage]: CatalogPageData;
@@ -40,6 +41,7 @@ type IncomingDataMap = {
     [IncomingEvent.RoomFurniturePlace]: RoomFurnitureData,
     [IncomingEvent.RoomFurnitureUpdate]: RoomFurnitureData
     [IncomingEvent.RoomFurnitureRemove]: RoomFurnitureRemoveData,
+    [IncomingEvent.WiredCondition]: WiredConditionParser
 };
 
 export class EventAPI extends EventObserver<IncomingDataMap, IncomingEvent> {
@@ -60,6 +62,7 @@ export class EventAPI extends EventObserver<IncomingDataMap, IncomingEvent> {
         [IncomingEvent.RoomFurniturePlace, new RoomFurniturePlaceParser()],
         [IncomingEvent.RoomFurnitureRemove, new RoomFurnitureRemoveParser()],
         [IncomingEvent.RoomFurnitureUpdate, new RoomFurnitureUpdateParser()],
+        [IncomingEvent.WiredCondition, new WiredConditionParser()]
     ])
     public sendEvent(composer: EventComposer) {
         this._socket.send(composer.buffer);
@@ -69,7 +72,6 @@ export class EventAPI extends EventObserver<IncomingDataMap, IncomingEvent> {
         const length: number = buffer.readInt();
         const header: number = buffer.readShort();
         const parser: EventParser = this.eventParsers.get(header);
-
         const name: string = IncomingEvent[header];
 
         Console.log(
@@ -77,19 +79,17 @@ export class EventAPI extends EventObserver<IncomingDataMap, IncomingEvent> {
             'color: #e0f59a', 'color: white', 'color: gray'
         );
 
-        if(!name) {
-            Console.hex(new DataView(data));
-        }
-
         if (parser) {
             try {
                 const data: EventData = parser.parse(buffer);
                 this.callObservers(header, data);
+                Console.log(data);
             }
 
-            catch (err) {
-                Console.log(`[EventAPI] Error parsing event ${IncomingHeader[header]}`);
-                Console.log(err);
+            catch (err: any) {
+                Console.log(`%c[EventAPI] %cError parsing event ${IncomingHeader[header]}`,
+                    'color: red', 'color: white');
+                Console.log(err.message, err.stackTrace);
             }
         }
     }

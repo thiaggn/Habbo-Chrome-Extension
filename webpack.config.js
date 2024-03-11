@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
     entry: {
         extension_bundle: './src/Test.ts', // Entrada principal para o bundle.js
-        content_script: './src/Script.ts', // Entrada para script.js
+        // content_script: './src/Script.ts', // Entrada para script.js
     },
     output: {
         filename: '[name].js', // Usar o nome do ponto de entrada como nome do arquivo de saída
@@ -21,7 +21,7 @@ module.exports = {
             },
         ],
     },
-    mode: "production",
+    mode: "development",
     cache: {
         type: 'filesystem',
     }

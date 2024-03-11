@@ -1,5 +1,6 @@
 export enum IncomingHeader
 {
+    WIRED_CONDITION_DATA = 1108,
     ACHIEVEMENT_LIST = 305,
     AUTHENTICATED = 2491,
     AUTHENTICATION = -1,
